@@ -1,153 +1,153 @@
-# Remix Indie Stack
+# Remix Indie スタック
 
 ![The Remix Indie Stack](https://repository-images.githubusercontent.com/465928257/a241fa49-bd4d-485a-a2a5-5cb8e4ee0abf)
 
-Learn more about [Remix Stacks](https://remix.run/stacks).
+[Remix Stacks](https://remix.run/stacks)についてもっと学ぶ。
 
 ```sh
 npx create-remix@latest --template remix-run/indie-stack
 ```
 
-## What's in the stack
+## スタック内容
 
-- [Fly app deployment](https://fly.io) with [Docker](https://www.docker.com/)
-- Production-ready [SQLite Database](https://sqlite.org)
-- Healthcheck endpoint for [Fly backups region fallbacks](https://fly.io/docs/reference/configuration/#services-http_checks)
-- [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
-- Email/Password Authentication with [cookie-based sessions](https://remix.run/utils/sessions#md-createcookiesessionstorage)
-- Database ORM with [Prisma](https://prisma.io)
-- Styling with [Tailwind](https://tailwindcss.com/)
-- End-to-end testing with [Cypress](https://cypress.io)
-- Local third party request mocking with [MSW](https://mswjs.io)
-- Unit testing with [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com)
-- Code formatting with [Prettier](https://prettier.io)
-- Linting with [ESLint](https://eslint.org)
-- Static Types with [TypeScript](https://typescriptlang.org)
+- [Fly app deployment](https://fly.io) と [Docker](https://www.docker.com/) を使用した本番環境へのデプロイ
+- 本番環境に適した [SQLiteデータベース](https://sqlite.org)
+- [Flyバックアップリージョンフォールバック用のヘルスチェックエンドポイント](https://fly.io/docs/reference/configuration/#services-http_checks)
+- 本番環境とステージング環境へのマージ時のデプロイのための [GitHub Actions](https://github.com/features/actions)
+- [cookieベースのセッション](https://remix.run/utils/sessions#md-createcookiesessionstorage)を使ったメール/パスワード認証
+- [Prisma](https://prisma.io)を使ったデータベースORM
+- [Tailwind](https://tailwindcss.com/)を使ったスタイリング
+- [Cypress](https://cypress.io)を使ったエンドツーエンドテスト
+- [MSW](https://mswjs.io)を使ったローカルサードパーティリクエストモッキング
+- [Vitest](https://vitest.dev)と[Testing Library](https://testing-library.com)を使ったユニットテスト
+- [Prettier](https://prettier.io)を使ったコードフォーマット
+- [ESLint](https://eslint.org)を使ったリンティング
+- [TypeScript](https://typescriptlang.org)を使った静的タイプ
 
-Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --template your/repo`! Make it your own.
+スタックの一部が気に入らない場合は、フォークして変更し、`npx create-remix --template your/repo`を使って自分のものにしてください。
 
-## Quickstart
+## クイックスタート
 
-Click this button to create a [Gitpod](https://gitpod.io) workspace with the project set up and Fly pre-installed
+このボタンをクリックして、プロジェクトが設定され、Flyがプリインストールされた[Gitpod](https://gitpod.io)のワークスペースを作成します。
 
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/remix-run/indie-stack/tree/main)
 
-## Development
+## 開発
 
-- Initial setup:
+- 初期設定：
 
   ```sh
   npm run setup
   ```
 
-- Start dev server:
+- 開発サーバーの開始：
 
   ```sh
   npm run dev
   ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+これにより、ファイルの変更時にアセットをリビルドする開発モードでアプリが開始されます。
 
-The database seed script creates a new user with some data you can use to get started:
+データベースシードスクリプトは、始めるために使用できるいくつかのデータを持つ新しいユーザーを作成します：
 
-- Email: `rachel@remix.run`
-- Password: `racheliscool`
+- メール： `rachel@remix.run`
+- パスワード： `racheliscool`
 
-### Relevant code:
+### 関連するコード：
 
-This is a pretty simple note-taking app, but it's a good example of how you can build a full stack app with Prisma and Remix. The main functionality is creating users, logging in and out, and creating and deleting notes.
+これはかなりシンプルなメモアプリですが、PrismaとRemixを使用してフルスタックアプリを構築する方法の良い例です。主な機能はユーザーの作成、ログインとログアウト、そしてメモの作成と削除です。
 
-- creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
-- user sessions, and verifying them [./app/session.server.ts](./app/session.server.ts)
-- creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
+- ユーザーの作成、ログインとログアウト [./app/models/user.server.ts](./app/models/user.server.ts)
+- ユーザーセッション、およびその検証 [./app/session.server.ts](./app/session.server.ts)
+- メモの作成と削除 [./app/models/note.server.ts](./app/models/note.server.ts)
 
-## Deployment
+## デプロイメント
 
-This Remix Stack comes with two GitHub Actions that handle automatically deploying your app to production and staging environments.
+このRemix Stackには、アプリを本番環境とステージング環境に自動的にデプロイするための2つのGitHub Actionsが含まれています。
 
-Prior to your first deployment, you'll need to do a few things:
+初回デプロイメントの前に、いくつかの作業が必要です：
 
-- [Install Fly](https://fly.io/docs/getting-started/installing-flyctl/)
+- [Flyをインストール](https://fly.io/docs/getting-started/installing-flyctl/)
 
-- Sign up and log in to Fly
+- Flyにサインアップしてログインします
 
   ```sh
   fly auth signup
   ```
 
-  > **Note:** If you have more than one Fly account, ensure that you are signed into the same account in the Fly CLI as you are in the browser. In your terminal, run `fly auth whoami` and ensure the email matches the Fly account signed into the browser.
+  > **注記：** 複数のFlyアカウントを持っている場合は、Fly CLIでサインインしているアカウントがブラウザでサインインしているアカウントと同じであることを確認してください。ターミナルで`fly auth whoami`を実行し、メールがブラウザでサインインしているFlyアカウントと一致していることを確認します。
 
-- Create two apps on Fly, one for staging and one for production:
+- ステージング用と本番用の2つのFlyアプリを作成します：
 
   ```sh
   fly apps create blog-tutorial-75f2
   fly apps create blog-tutorial-75f2-staging
   ```
 
-  > **Note:** Make sure this name matches the `app` set in your `fly.toml` file. Otherwise, you will not be able to deploy.
+  > **注記：** この名前が`fly.toml`ファイルに設定されている`app`と一致していることを確認してください。そうでない場合、デプロイできません。
 
-  - Initialize Git.
+  - Gitを初期化します。
 
   ```sh
   git init
   ```
 
-- Create a new [GitHub Repository](https://repo.new), and then add it as the remote for your project. **Do not push your app yet!**
+- 新しい[GitHubリポジトリ](https://repo.new)を作成し、それをプロジェクトのリモートとして追加します。**まだアプリをプッシュしないでください！**
 
   ```sh
   git remote add origin <ORIGIN_URL>
   ```
 
-- Add a `FLY_API_TOKEN` to your GitHub repo. To do this, go to your user settings on Fly and create a new [token](https://web.fly.io/user/personal_access_tokens/new), then add it to [your repo secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) with the name `FLY_API_TOKEN`.
+- GitHubリポジトリに`FLY_API_TOKEN`を追加します。これを行うには、Flyのユーザー設定にアクセスして新しい[token](https://web.fly.io/user/personal_access_tokens/new)を作成し、[リポジトリのシークレット](https://docs.github.com/en/actions/security-guides/encrypted-secrets)に`FLY_API_TOKEN`の名前で追加します。
 
-- Add a `SESSION_SECRET` to your fly app secrets, to do this you can run the following commands:
+- Flyアプリのシークレットに`SESSION_SECRET`を追加します。これを行うには、以下のコマンドを実行します：
 
   ```sh
   fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app blog-tutorial-75f2
   fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app blog-tutorial-75f2-staging
   ```
 
-  If you don't have openssl installed, you can also use [1Password](https://1password.com/password-generator) to generate a random secret, just replace `$(openssl rand -hex 32)` with the generated secret.
+  opensslがインストールされていない場合は、[1Password](https://1password.com/password-generator)などでランダムなシークレットを生成し、`$(openssl rand -hex 32)`を生成されたシークレットに置き換えても構いません。
 
-- Create a persistent volume for the sqlite database for both your staging and production environments. Run the following:
+- ステージングおよび本番環境のSQLiteデータベース用に永続ボリュームを作成します。以下を実行します：
 
   ```sh
   fly volumes create data --size 1 --app blog-tutorial-75f2
   fly volumes create data --size 1 --app blog-tutorial-75f2-staging
   ```
 
-Now that everything is set up you can commit and push your changes to your repo. Every commit to your `main` branch will trigger a deployment to your production environment, and every commit to your `dev` branch will trigger a deployment to your staging environment.
+すべての設定が完了したら、変更をコミットしてリポジトリにプッシュします。`main`ブランチへの各コミットは本番環境へのデプロイを、`dev`ブランチへの各コミットはステージング環境へのデプロイをトリガーします。
 
-### Connecting to your database
+### データベースへの接続
 
-The sqlite database lives at `/data/sqlite.db` in your deployed application. You can connect to the live database by running `fly ssh console -C database-cli`.
+デプロイされたアプリケーション内にあるsqliteデータベースは`/data/sqlite.db`に存在します。`fly ssh console -C database-cli`を実行することで、ライブデータベースに接続できます。
 
-### Getting Help with Deployment
+### デプロイメントのサポートを受ける
 
-If you run into any issues deploying to Fly, make sure you've followed all of the steps above and if you have, then post as many details about your deployment (including your app name) to [the Fly support community](https://community.fly.io). They're normally pretty responsive over there and hopefully can help resolve any of your deployment issues and questions.
+Flyへのデプロイメントで問題が発生した場合は、上記のすべてのステップを確実に実行していることを確認し、それでも問題が解決しない場合は、デプロイメントに関する詳細（アプリ名を含む）を[Flyサポートコミュニティ](https://community.fly.io)に投稿してください。通常、そちらでは迅速な対応が期待でき、デプロイメントの問題や質問に対する解決策を提供してくれることがあります。
 
 ## GitHub Actions
 
-We use GitHub Actions for continuous integration and deployment. Anything that gets into the `main` branch will be deployed to production after running tests/build/etc. Anything in the `dev` branch will be deployed to staging.
+このプロジェクトでは、継続的な統合とデプロイメントのためにGitHub Actionsを使用しています。`main`ブランチに入ったものは、テスト/ビルドなどを経て本番環境にデプロイされます。`dev`ブランチ内のものはステージング環境にデプロイされます。
 
-## Testing
+## テスト
 
 ### Cypress
 
-We use Cypress for our End-to-End tests in this project. You'll find those in the `cypress` directory. As you make changes, add to an existing file or create a new file in the `cypress/e2e` directory to test your changes.
+このプロジェクトではエンドツーエンドテストにCypressを使用しています。これらは`cypress`ディレクトリ内にあります。変更を加える際には、既存のファイルに追加するか、`cypress/e2e`ディレクトリ内に新しいファイルを作成して変更をテストしてください。
 
-We use [`@testing-library/cypress`](https://testing-library.com/cypress) for selecting elements on the page semantically.
+ページ上の要素を意味的に選択するために[`@testing-library/cypress`](https://testing-library.com/cypress)を使用しています。
 
-To run these tests in development, run `npm run test:e2e:dev` which will start the dev server for the app as well as the Cypress client. Make sure the database is running in docker as described above.
+これらのテストを開発環境で実行するには、`npm run test:e2e:dev`を実行してアプリの開発サーバーとCypressクライアントを起動します。上述のようにデータベースがdockerで実行されていることを確認してください。
 
-We have a utility for testing authenticated features without having to go through the login flow:
+ログインフローを経ずに認証された機能をテストするためのユーティリティがあります：
 
 ```ts
 cy.login();
-// you are now logged in as a new user
+// 新しいユーザーとしてログインしています
 ```
 
-We also have a utility to auto-delete the user at the end of your test. Just make sure to add this in each test file:
+また、テストの終わりにユーザーを自動的に削除するユーティリティもあります。各テストファイルに以下を追加してください：
 
 ```ts
 afterEach(() => {
@@ -155,20 +155,22 @@ afterEach(() => {
 });
 ```
 
-That way, we can keep your local db clean and keep your tests isolated from one another.
+これにより、ローカルDBをクリーンに保ち、テストを互いに分離することができます。
 
 ### Vitest
 
-For lower level tests of utilities and individual components, we use `vitest`. We have DOM-specific assertion helpers via [`@testing-library/jest-dom`](https://testing-library.com/jest-dom).
+ユーティリティや個々のコンポーネントの低レベルのテストには`vitest`を使用しています。DOM固有のアサーションヘルパーは[`@testing-library/jest-dom`](https://testing-library.com/jest-dom)を通じて提供されています。
 
-### Type Checking
+### タイプチェック
 
-This project uses TypeScript. It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete. To run type checking across the whole project, run `npm run typecheck`.
+このプロジェクトはTypeScriptを使用しています。タイプチェックとオートコンプリートを活用するために、エディターにTypeScriptを設定することをお勧めします。プロジェクト全体でタイプチェックを実行するには、`npm run typecheck`を実行してください。
 
-### Linting
+### リンティング
 
-This project uses ESLint for linting. That is configured in `.eslintrc.js`.
+このプロジェクトはリンティングのた
 
-### Formatting
+めにESLintを使用しています。それは`.eslintrc.js`で設定されています。
 
-We use [Prettier](https://prettier.io/) for auto-formatting in this project. It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save. There's also a `npm run format` script you can run to format all files in the project.
+### フォーマット
+
+このプロジェクトでは自動フォーマットのために[Prettier](https://prettier.io/)を使用しています。保存時に自動フォーマットを行うために、エディタープラグイン（例えば[VSCode Prettierプラグイン](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)）のインストールをお勧めします。プロジェクト内のすべてのファイルをフォーマットするために実行できる`npm run format`スクリプトもあります。
